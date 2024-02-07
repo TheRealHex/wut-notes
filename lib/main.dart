@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
       // home: NoteDetail(),
       routes: {
         '/': (_) => const NoteList(),
-        '/details': (_) => const NoteDetail(),
+        '/details': (_) => NoteDetail(
+              appBarTitle: appBarTitle,
+            ),
       },
     );
   }

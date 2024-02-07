@@ -7,6 +7,8 @@ class NoteList extends StatefulWidget {
   State<NoteList> createState() => _NoteListState();
 }
 
+String appBarTitle = '';
+
 class _NoteListState extends State<NoteList> {
   int count = 1;
 
@@ -19,7 +21,11 @@ class _NoteListState extends State<NoteList> {
       body: _getNoteListView(),
       floatingActionButton: FloatingActionButton.small(
         onPressed: () {
+          appBarTitle = 'Add Note';
           debugPrint('fab clicked.');
+          Navigator.pushNamed(context, '/details', arguments: {
+            'appBarTitle': appBarTitle,
+          });
         },
         tooltip: 'Add Note',
         child: const Icon(Icons.add),
@@ -49,6 +55,7 @@ class _NoteListState extends State<NoteList> {
                   icon: const Icon(Icons.delete)),
               onTap: () {
                 debugPrint('ListTile clicked.');
+                appBarTitle = 'Edit Note';
                 Navigator.pushNamed(context, '/details');
               },
             ),

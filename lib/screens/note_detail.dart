@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NoteDetail extends StatefulWidget {
-  const NoteDetail({super.key});
+  const NoteDetail({
+    Key? key,
+    required this.appBarTitle,
+  }) : super(key: key);
 
+  final String appBarTitle;
   @override
   State<NoteDetail> createState() => _NoteDetailState();
 }
@@ -17,41 +21,12 @@ class _NoteDetailState extends State<NoteDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit note'),
+        title: Text(widget.appBarTitle),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Title textfield
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: TextField(
-              controller: titleController,
-              onChanged: (value) {
-                debugPrint('title is being added.');
-              },
-              decoration: InputDecoration(
-                  labelText: 'Title',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  )),
-            ),
-          ),
-          // Description textfield
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: TextField(
-              controller: descriptionController,
-              onChanged: (value) {
-                debugPrint('Description is being added.');
-              },
-              decoration: InputDecoration(
-                  labelText: 'Description',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  )),
-            ),
-          ),
+          textField('Title', titleController, 1),
+          textField('Description', descriptionController, 8),
           // Priority dropdown
           DropdownButton(
             items: _priorities.map((String dropDownStringItems) {
@@ -68,27 +43,55 @@ class _NoteDetailState extends State<NoteDetail> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Save'),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+            child: widget.appBarTitle == 'Edit Note'
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      saveBtn(),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Delete'),
+                        ),
+                      )
+                    ],
+                  )
+                : Row(
+                    children: [
+                      saveBtn(),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Delete'),
-                  ),
-                )
-              ],
-            ),
           )
         ],
+      ),
+    );
+  }
+
+  Expanded saveBtn() {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const Text('Save'),
+      ),
+    );
+  }
+
+  Padding textField(String data, TextEditingController controller, int lines) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: TextField(
+        maxLines: lines,
+        controller: controller,
+        onChanged: (value) {
+          // debugPrint('title is being added.');
+        },
+        decoration: InputDecoration(
+            labelText: data,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            )),
       ),
     );
   }
