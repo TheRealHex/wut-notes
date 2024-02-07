@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:notes/screens/note_detail.dart';
 import 'screens/note_list.dart';
 
 void main() {
@@ -14,10 +14,15 @@ class MyApp extends StatelessWidget {
       title: 'Notes',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const NoteList(),
+      // home: const NoteList(),
+      // home: NoteDetail(),
+      routes: {
+        '/': (_) => const NoteList(),
+        '/details': (_) => const NoteDetail(),
+      },
     );
   }
 }

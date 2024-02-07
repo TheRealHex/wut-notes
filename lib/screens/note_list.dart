@@ -17,6 +17,13 @@ class _NoteListState extends State<NoteList> {
         title: const Text('Notes'),
       ),
       body: _getNoteListView(),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {
+          debugPrint('fab clicked.');
+        },
+        tooltip: 'Add Note',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -35,10 +42,14 @@ class _NoteListState extends State<NoteList> {
               ),
               title: const Text('Dummy Title'),
               subtitle: const Text('Dummy date'),
-              trailing:
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+              trailing: IconButton(
+                  onPressed: () {
+                    debugPrint('delete clicked.');
+                  },
+                  icon: const Icon(Icons.delete)),
               onTap: () {
-                debugPrint('test');
+                debugPrint('ListTile clicked.');
+                Navigator.pushNamed(context, '/details');
               },
             ),
           ),
